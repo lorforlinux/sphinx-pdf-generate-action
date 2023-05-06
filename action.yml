@@ -1,0 +1,40 @@
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: 'Sphinx-PDF Generate'
+description: 'GitHub Action to build and deploy HTML and PDF files of your Sphinx documentation to any static-site hosting platform'
+author: 'Duodu Randy'
+branding:
+  color: 'purple'
+  icon: 'sunrise'
+inputs:
+  documentation_path:
+    description: 'Relative path under $repository_path to documentation source files'
+    required: false
+    default: './docs'
+  config_file_path:
+    description: 'Relative path to the `conf.py` configuration file'
+    required: true
+    default: 'conf.py'
+  target_branch:
+    description: 'Git branch where build files will be transferred to'
+    required: false
+    default: 'site'
+  target_path:
+    description: 'Path in $target_branch where Sphinx build files will be placed'
+    required: false
+    default: '.'
+  repository_path:
+    description: 'Relative path under $GITHUB_WORKSPACE to place the repository'
+    required: false
+    default: '.'
+  requirements_path:
+    description: 'Relative path under $repository_path to pip requirements file'
+    required: false
+    default: './requirements.txt'
+  sphinx_version:
+    description: 'Version of Sphinx'
+    required: false
+    default: '5.3'
+
+runs:
+  using: 'node16'
+  main: 'main.js'
