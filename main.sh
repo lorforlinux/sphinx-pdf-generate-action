@@ -60,6 +60,8 @@ echo ::group:: Running Sphinx-PDF Generate builder
 echo "Sphinx config file located at: ${config_file}"
 
 if [[ -e $config_file ]]; then
+  echo "Building Docs with command: sphinx-pdf-generate -b html ${doc_dir} ${tmp_dir}"  
+
   sphinx-pdf-generate -b html $doc_dir $tmp_dir
 fi
 
@@ -89,7 +91,13 @@ cd $repo_dir
 echo Deleting all file in repository
 rm -vrf *
 echo Copying HTML documentation to repository
+# Remove unused doctree
+rm -rf $tmp_dir/.doctrees
 cp -vr $tmp_dir/. $INPUT_TARGET_PATH
+if [ ! -f "$INPUT_TARGET_PATH/.nojekyll" ]; then
+    echo Creating .nojekyll file
+    touch "$INPUT_TARGET_PATH/.nojekyll"
+fi
 echo Adding HTML documentation to repository index
 git add $INPUT_TARGET_PATH
 echo Recording changes to repository
