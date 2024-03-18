@@ -36,5 +36,5 @@ inputs:
     default: '5.3'
 
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'main.js'
